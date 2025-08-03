@@ -1,0 +1,31 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}My Todos{% endblock %}
+
+{% block content %}
+<h2>Your Todo List</h2>
+
+<!-- Add Todo Form -->
+<form method="POST" action="{{ url_for('add_todo') }}" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="todo" class="form-control" placeholder="New task..." required>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+</form>
+
+<!-- Todo List -->
+<ul class="list-group">
+    {% for todo in todos %}
+        <li class="list-group-item d-flex justify-content-between align-items-center {% if todo.done %}text-decoration-line-through{% endif %}">
+            {{ todo.todo }}
+            <div>
+                {% if not todo.done %}
+                    <a href="{{ url_for('mark_done', todo_id=todo.id) }}" class="btn btn-sm btn-success">Done</a>
+                {% endif %}
+                <a href="{{ url_for('delete_todo', todo_id=todo.id) }}" class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
