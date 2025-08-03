@@ -160,6 +160,13 @@ def delete_todo(todo_id):
     return redirect(url_for('index'))
 
 # ===========================
+# Initialize DB Tables
+# ===========================
+
+with app.app_context():
+    db.create_all()
+
+# ===========================
 # Run App
 # ===========================
 
